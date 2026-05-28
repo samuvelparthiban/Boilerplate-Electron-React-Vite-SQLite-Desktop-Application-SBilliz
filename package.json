@@ -1,0 +1,100 @@
+{
+  "name": "sbilliz",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Billing management desktop application built with Electron, React and SQLite",
+  "homepage": "https://sbilliz.com",
+  "author": {
+    "name": "Samuvel Parthiban",
+    "email": "support@sbilliz.com"
+  },
+  "type": "module",
+  "main": "./electron/main.js",
+  "scripts": {
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation concurrently \"npm run dev:vite\" \"npm run dev:electron-node\"",
+    "dev:vite": "vite",
+    "dev:electron-node": "node scripts/start-electron.js",
+    "dev:electron": "wait-on tcp:5173 && electronmon .",
+    "dist": "vite build",
+    "build": "npm run dist && electron-builder",
+    "build:win": "npm run dist && electron-builder --win",
+    "build:linux": "npm run dist && electron-builder --linux",
+    "build:mac": "npm run dist && electron-builder --mac",
+    "postinstall": "electron-builder install-app-deps",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "build": {
+    "appId": "com.sbilliz.billing",
+    "productName": "SBilliz",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "removePackageScripts": true,
+    "npmRebuild": false,
+    "buildDependenciesFromSource": false,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "e-assets/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "e-assets/icon.png",
+      "category": "Office",
+      "maintainer": "Samuvel Parthiban <support@sbilliz.com>"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "e-assets/icon.icns",
+      "category": "public.app-category.business"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SBilliz"
+    }
+  },
+  "dependencies": {
+    "better-sqlite3-multiple-ciphers": "^12.10.0",
+    "dotenv": "^17.4.2",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^40.6.0",
+    "electron-builder": "^26.8.1",
+    "electronmon": "^2.0.4",
+    "eslint": "^10.4.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "vite": "^8.0.14",
+    "wait-on": "^9.0.10"
+  }
+}
