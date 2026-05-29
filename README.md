@@ -73,7 +73,7 @@ project-root/
 
 ```bash id="7z5dfr"
 git clone <your-repository-url>
-cd sbilliz
+cd your-repo-name
 ```
 
 ## Install Dependencies
